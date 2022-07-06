@@ -1,0 +1,66 @@
+.body {
+    display: flex;
+    justify-content: center;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    align-items: center;
+    //margin-top: 100px;
+
+    & > * {
+        margin-top: 10px;
+        height: 30px;
+        border-radius: 3px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 0.3rem;
+        text-align: center;
+    }
+    
+    .lock-icon {
+        height: 120px;
+        width: 120px;
+        overflow: hidden;
+        img {
+            margin: -55px 0 0 -55px;
+            height: 220px;
+            width: 220px;
+        }
+    }
+
+    & > input {
+        border: 2px solid #b8b8b8;
+        background-color: #e6e6e6;
+        text-align: left;
+        &:hover {
+            border: 2px solid #757575;
+        }
+    }
+
+    & > span {
+        border: 2px solid #90c9a3;
+        background-color: #aff4c6;
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+            border: 2px solid #73a082;
+            background-color: #90c9a3;
+        }
+    }
+    
+    .register-area {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        
+        & > span {
+            text-decoration: underline;
+            cursor: pointer;
+            &:hover {
+                font-weight: bold;
+            }
+        }
+    }
+}
