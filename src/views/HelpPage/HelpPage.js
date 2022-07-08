@@ -10,14 +10,12 @@ const HelpPage = () => {
     3: "",
     4: "",
     5: "",
-    6: "",
   });
 
   const [check, setcheck] = useState(false);
 
   const nameList = [
     "문의구분",
-    "사업자등록번호",
     "신청인",
     "e-mail",
     "연락처",
@@ -38,10 +36,11 @@ const HelpPage = () => {
       if (Text[i] === "") {
         alert(nameList[i - 1] + "을 입력해 주세요");
         return;
-      } else if (check === false) {
-        alert("약관동의를 체크해 주세요");
-        return;
       }
+    }
+    if (check === false) {
+      alert("약관동의를 체크해 주세요");
+      return;
     }
   };
 
@@ -72,7 +71,7 @@ const HelpPage = () => {
                 </select>
               </div>
             );
-          if (idx === 5)
+          if (idx === 4)
             return (
               <div
                 key={idx + 1}
@@ -91,7 +90,7 @@ const HelpPage = () => {
                 />
               </div>
             );
-          if (idx === 6) return <Tos key={idx + 1} check={setcheck} />;
+          if (idx === 5) return <Tos key={idx + 1} check={setcheck} />;
           return (
             <div key={idx + 1} className="input-box">
               <div>

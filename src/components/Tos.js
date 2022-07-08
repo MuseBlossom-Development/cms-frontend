@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-// import { useEffect } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const Tos = (props) => {
   const styles = [
@@ -49,31 +50,41 @@ const Tos = (props) => {
       fontSize: "14.5px",
     },
   ];
-  const [isCheck, setisCheck] = useState({
+  const [isCheck, setIsCheck] = useState({
     check1: false,
     check2: false,
-    hover1: false,
-    hover2: false,
   });
 
   const checkOnSrc = "icons/check_on.png";
   const checkOffSrc = "icons/check_off.png";
   const checkHoverSrc = "icons/check_hover.png";
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     console.log(isCheck.check1);
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    checkAgree();
+  }, [isCheck]);
+
+  const check1 = useRef();
+  const check2 = useRef();
 
   const checkAgree = () => {
     if (isCheck.check1 && isCheck.check2) {
       props.check(true);
-      alert("check!");
     } else props.check(false);
   };
 
   const findStyle = (name) => styles.find((ele) => ele.name === name);
+
+  const onMouseEnterCheck = (num) => {
+    if (isCheck.check1 === false && num === 1)
+      check1.current.src = checkHoverSrc;
+    if (isCheck.check2 === false && num === 2)
+      check2.current.src = checkHoverSrc;
+  };
+
+  const onMouseLeaveCheck = (num) => {
+    if (isCheck.check1 === false && num === 1) check1.current.src = checkOffSrc;
+    if (isCheck.check2 === false && num === 2) check2.current.src = checkOffSrc;
+  };
 
   return (
     <div style={findStyle("tos-area")}>
@@ -88,41 +99,31 @@ const Tos = (props) => {
       <span style={findStyle("check-box")}>
         <div style={findStyle("check-block")}>
           <img
-            src={
-              isCheck.check1
-                ? checkOnSrc
-                : isCheck.hover1
-                ? checkHoverSrc
-                : checkOffSrc
-            }
+            src={isCheck.check1 ? checkOnSrc : checkOffSrc}
+            ref={check1}
             alt="check"
             style={findStyle("check-icon")}
             onClick={() => {
-              setisCheck({ ...isCheck, check1: !isCheck.check1 });
+              setIsCheck({ ...isCheck, check1: !isCheck.check1 });
               checkAgree();
             }}
-            onMouseEnter={() => setisCheck({ ...isCheck, hover1: true })}
-            onMouseLeave={() => setisCheck({ ...isCheck, hover1: false })}
+            onMouseEnter={() => onMouseEnterCheck(1)}
+            onMouseLeave={() => onMouseLeaveCheck(1)}
           />
           <span style={findStyle("text")}>이용 약관에 동의합니다</span>
         </div>
         <div style={findStyle("check-block")}>
           <img
-            src={
-              isCheck.check2
-                ? checkOnSrc
-                : isCheck.hover2
-                ? checkHoverSrc
-                : checkOffSrc
-            }
+            src={isCheck.check2 ? checkOnSrc : checkOffSrc}
+            ref={check2}
             alt="check"
             style={findStyle("check-icon")}
             onClick={() => {
-              setisCheck({ ...isCheck, check2: !isCheck.check2 });
+              setIsCheck({ ...isCheck, check2: !isCheck.check2 });
               checkAgree();
             }}
-            onMouseEnter={() => setisCheck({ ...isCheck, hover2: true })}
-            onMouseLeave={() => setisCheck({ ...isCheck, hover2: false })}
+            onMouseEnter={() => onMouseEnterCheck(2)}
+            onMouseLeave={() => onMouseLeaveCheck(2)}
           />
           <span style={findStyle("text")}>개인정보취급방침에 동의합니다</span>
         </div>
