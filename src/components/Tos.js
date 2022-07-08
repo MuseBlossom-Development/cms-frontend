@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { useEffect } from "react";
 
 const Tos = (props) => {
   const styles = [
@@ -59,15 +60,11 @@ const Tos = (props) => {
   const checkOffSrc = "icons/check_off.png";
   const checkHoverSrc = "icons/check_hover.png";
 
-  function checkCb1(callback) {
-    setisCheck({ ...isCheck, check1: !isCheck.check1 });
-    callback();
-  }
-
-  function checkCb2(callback) {
-    setisCheck({ ...isCheck, check2: !isCheck.check2 });
-    callback();
-  }
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     console.log(isCheck.check1);
+  //   }, 1000);
+  // }, []);
 
   const checkAgree = () => {
     if (isCheck.check1 && isCheck.check2) {
