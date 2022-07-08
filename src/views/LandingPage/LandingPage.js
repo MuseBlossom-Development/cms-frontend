@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./style.scss";
 
 const LandingPage = () => {
   const [showPW, setshowPW] = useState(false);
+  const navigate = useNavigate();
 
   const onEye = (e) => {
     switch (e.type) {
@@ -35,7 +38,7 @@ const LandingPage = () => {
         </div>
         <span>Login</span>
         <div className="register-area">
-          <span>문의하기</span>
+          <span onClick={() => navigate("/help")}>문의하기</span>
           <span>회원가입</span>
         </div>
       </div>
