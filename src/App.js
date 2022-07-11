@@ -1,7 +1,9 @@
-import "./App.css";
-import LandingPage from "./views/LandingPage/LandingPage";
-import HelpPage from "./views/HelpPage/HelpPage";
+// import "./util/style.scss";
+import LandingPage from "./views/LandingPage";
+import HelpPage from "./views/HelpPage";
+import RegisterPage from "./views/RegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./util/style.scss";
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/help" element={<HelpPage />}></Route>
+        <Route path="/register" element={<RegisterPage />}></Route>
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>
