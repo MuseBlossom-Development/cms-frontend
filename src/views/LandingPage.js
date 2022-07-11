@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../api/index";
-
-import "./style.scss";
+import { login } from "../api/index";
 
 const LandingPage = () => {
   const [showPW, setshowPW] = useState(false);
@@ -32,13 +30,17 @@ const LandingPage = () => {
 
   return (
     <div className="body">
-      <div className="login-container">
-        <h1>CMS</h1>
+      <div className="container" style={{ width: "250px" }}>
+        <h1 style={{ marginBottom: "0px" }}>CMS</h1>
         <div className="lock-icon">
           <img src="icons/lock.png" alt="LOCK_IMG" />
         </div>
-        <input type="text" onChange={(e) => setId(e.target.value)} />
-        <div className="password-box">
+        <input
+          className="input-text"
+          type="text"
+          onChange={(e) => setId(e.target.value)}
+        />
+        <div className="input-password">
           <input
             type={showPW ? "text" : "password"}
             onChange={(e) => setPw(e.target.value)}
@@ -50,10 +52,12 @@ const LandingPage = () => {
             onMouseUp={onEye}
           />
         </div>
-        <span onClick={onClickLoginButton}>Login</span>
+        <span className="login-button" onClick={onClickLoginButton}>
+          Login
+        </span>
         <div className="register-area">
           <span onClick={() => navigate("/help")}>문의하기</span>
-          <span>회원가입</span>
+          <span onClick={() => navigate("/Register")}>회원가입</span>
         </div>
       </div>
     </div>

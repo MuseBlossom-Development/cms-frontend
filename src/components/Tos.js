@@ -5,37 +5,14 @@ import { useEffect } from "react";
 const Tos = (props) => {
   const styles = [
     {
-      name: "tos-area",
-      display: "flex",
-      height: "40px",
-      width: "100%",
-      justifyContent: "space-between",
-    },
-    {
-      name: "red-star",
-      flexBasis: "5%",
-    },
-    {
-      name: "red-star-icon",
-      width: "15px",
-      height: "15px",
-    },
-    {
-      name: "text-box",
-      flexBasis: "35%",
-      textAlign: "left",
-    },
-    {
       name: "check-box",
-      flexBasis: "60%",
       display: "flex",
       flexDirection: "column",
-      marginTop: "2px",
+      flexBasis: props.flexBasis + "%",
     },
     {
       name: "check-block",
       display: "flex",
-      justifyContent: "space-between",
     },
     {
       name: "check-icon",
@@ -45,9 +22,11 @@ const Tos = (props) => {
     },
     {
       name: "text",
-      width: "88%",
       textAlign: "left",
-      fontSize: "14.5px",
+      fontSize: "12px",
+      fontWeight: "600",
+      padding: "2px 3px",
+      color: "#555555",
     },
   ];
   const [isCheck, setIsCheck] = useState({
@@ -60,17 +39,13 @@ const Tos = (props) => {
   const checkHoverSrc = "icons/check_hover.png";
 
   useEffect(() => {
-    checkAgree();
-  }, [isCheck]);
+    if (isCheck.check1 && isCheck.check2) {
+      props.setCheck(true);
+    } else props.setCheck(false);
+  }, [isCheck, props]);
 
   const check1 = useRef();
   const check2 = useRef();
-
-  const checkAgree = () => {
-    if (isCheck.check1 && isCheck.check2) {
-      props.check(true);
-    } else props.check(false);
-  };
 
   const findStyle = (name) => styles.find((ele) => ele.name === name);
 
@@ -87,15 +62,7 @@ const Tos = (props) => {
   };
 
   return (
-    <div style={findStyle("tos-area")}>
-      <div style={findStyle("red-star")}>
-        <img
-          src="icons/red_star.png"
-          alt="Star"
-          style={findStyle("red-star-icon")}
-        />
-      </div>
-      <span style={findStyle("text-box")}>약관동의</span>
+    <>
       <span style={findStyle("check-box")}>
         <div style={findStyle("check-block")}>
           <img
@@ -103,10 +70,7 @@ const Tos = (props) => {
             ref={check1}
             alt="check"
             style={findStyle("check-icon")}
-            onClick={() => {
-              setIsCheck({ ...isCheck, check1: !isCheck.check1 });
-              checkAgree();
-            }}
+            onClick={() => setIsCheck({ ...isCheck, check1: !isCheck.check1 })}
             onMouseEnter={() => onMouseEnterCheck(1)}
             onMouseLeave={() => onMouseLeaveCheck(1)}
           />
@@ -118,17 +82,14 @@ const Tos = (props) => {
             ref={check2}
             alt="check"
             style={findStyle("check-icon")}
-            onClick={() => {
-              setIsCheck({ ...isCheck, check2: !isCheck.check2 });
-              checkAgree();
-            }}
+            onClick={() => setIsCheck({ ...isCheck, check2: !isCheck.check2 })}
             onMouseEnter={() => onMouseEnterCheck(2)}
             onMouseLeave={() => onMouseLeaveCheck(2)}
           />
           <span style={findStyle("text")}>개인정보취급방침에 동의합니다</span>
         </div>
       </span>
-    </div>
+    </>
   );
 };
 
