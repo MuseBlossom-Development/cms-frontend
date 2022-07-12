@@ -33,7 +33,7 @@ const LandingPage = () => {
 
   return (
     <div className="body">
-      <div className="container" style={{ width: "250px" }}>
+      <div className="container" style={{ width: "250px", marginTop: "150px" }}>
         <h1 style={{ marginBottom: "0px" }}>CMS</h1>
         <div className="lock-icon">
           <img src="icons/lock.png" alt="LOCK_IMG" />

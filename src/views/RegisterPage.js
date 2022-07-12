@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useState } from "react";
 import Tos from "../components/Tos";
+import Header from "../components/Header";
 import { checkId, checkEmail, signUp } from "../api/index";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +25,7 @@ const RegisterPage = () => {
   });
 
   const [showPw, setShowPw] = useState({ pw1: false, pw2: false });
+  const [showModal, setShowModal] = useState(false);
 
   const nameList = [
     "기업명",
@@ -33,6 +35,8 @@ const RegisterPage = () => {
     "e-mail",
     "약관동의",
   ];
+
+  const onClickBody = () => setShowModal(false);
 
   const onChangeText = (e) => {
     setText({ ...Text, [e.target.name]: e.target.value });
@@ -128,28 +132,90 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="body">
-      <div className="container">
-        <h2 style={{ marginBottom: "50px" }}>회원 가입</h2>
-        {nameList.map((ele, idx) => {
-          return (
-            <div
-              className="input-box"
-              key={idx}
-              style={idx === 5 ? { marginTop: "20px" } : {}}
-            >
-              <span className="red-star" style={{ flexBasis: "5%" }}>
-                <img
-                  className="red-star-icon"
-                  src="icons/red_star.png"
-                  alt="Star"
-                />
-              </span>
-              <span className="name-text" style={{ flexBasis: "25%" }}>
-                {ele}
-              </span>
-              {(() => {
-                if (idx === 1 || idx === 4)
+    <>
+      <Header showModal={showModal} setShowModal={setShowModal} />
+      <div className="body" onClick={onClickBody}>
+        <div className="container">
+          <h2 style={{ marginBottom: "50px" }}>회원 가입</h2>
+          {nameList.map((ele, idx) => {
+            return (
+              <div
+                className="input-box"
+                key={idx}
+                style={idx === 5 ? { marginTop: "20px" } : {}}
+              >
+                <span className="red-star" style={{ flexBasis: "5%" }}>
+                  <img
+                    className="red-star-icon"
+                    src="icons/red_star.png"
+                    alt="Star"
+                  />
+                </span>
+                <span className="name-text" style={{ flexBasis: "25%" }}>
+                  {ele}
+                </span>
+                {(() => {
+                  if (idx === 1 || idx === 4)
+                    return (
+                      <>
+                        <input
+                          type="text"
+                          name={"text" + (idx + 1)}
+                          className="input-text"
+                          style={{ flexBasis: "50%" }}
+                          onChange={onChangeText}
+                        />
+                        <span
+                          className="input-button-block"
+                          style={{ flexBasis: "20%" }}
+                        >
+                          <button
+                            className="input-button"
+                            onClick={
+                              idx === 1 ? onClickCheckId : onClickCheckEmail
+                            }
+                          >
+                            {idx === 1 ? "중복확인" : "인증하기"}
+                          </button>
+                        </span>
+                      </>
+                    );
+                  if (idx === 2 || idx === 3)
+                    return (
+                      <>
+                        <div
+                          className="password-block"
+                          style={{ flexBasis: "50%" }}
+                        >
+                          <div className="input-password">
+                            <img
+                              src="icons/eye.png"
+                              alt="LOCK_IMG"
+                              name={idx + 1}
+                              onMouseDown={onEye}
+                              onMouseUp={onEye}
+                              onMouseOut={onEye}
+                            />
+                            <input
+                              type={
+                                idx === 2
+                                  ? showPw.pw1
+                                    ? "text"
+                                    : "password"
+                                  : showPw.pw2
+                                  ? "text"
+                                  : "password"
+                              }
+                              name={"text" + (idx + 1)}
+                              onChange={onChangeText}
+                            />
+                          </div>
+                        </div>
+                        <span style={{ flexBasis: "20%" }}></span>
+                      </>
+                    );
+                  if (idx === 5)
+                    return <Tos flexBasis="70" setCheck={setIsCheckedTos} />;
                   return (
                     <>
                       <input
@@ -159,78 +225,19 @@ const RegisterPage = () => {
                         style={{ flexBasis: "50%" }}
                         onChange={onChangeText}
                       />
-                      <span
-                        className="input-button-block"
-                        style={{ flexBasis: "20%" }}
-                      >
-                        <button
-                          className="input-button"
-                          onClick={
-                            idx === 1 ? onClickCheckId : onClickCheckEmail
-                          }
-                        >
-                          {idx === 1 ? "중복확인" : "인증하기"}
-                        </button>
-                      </span>
-                    </>
-                  );
-                if (idx === 2 || idx === 3)
-                  return (
-                    <>
-                      <div
-                        className="password-block"
-                        style={{ flexBasis: "50%" }}
-                      >
-                        <div className="input-password">
-                          <img
-                            src="icons/eye.png"
-                            alt="LOCK_IMG"
-                            name={idx + 1}
-                            onMouseDown={onEye}
-                            onMouseUp={onEye}
-                            onMouseOut={onEye}
-                          />
-                          <input
-                            type={
-                              idx === 2
-                                ? showPw.pw1
-                                  ? "text"
-                                  : "password"
-                                : showPw.pw2
-                                ? "text"
-                                : "password"
-                            }
-                            name={"text" + (idx + 1)}
-                            onChange={onChangeText}
-                          />
-                        </div>
-                      </div>
                       <span style={{ flexBasis: "20%" }}></span>
                     </>
                   );
-                if (idx === 5)
-                  return <Tos flexBasis="70" setCheck={setIsCheckedTos} />;
-                return (
-                  <>
-                    <input
-                      type="text"
-                      name={"text" + (idx + 1)}
-                      className="input-text"
-                      style={{ flexBasis: "50%" }}
-                      onChange={onChangeText}
-                    />
-                    <span style={{ flexBasis: "20%" }}></span>
-                  </>
-                );
-              })()}
-            </div>
-          );
-        })}
-        <button className="next-button" onClick={onClickButton}>
-          확인
-        </button>
+                })()}
+              </div>
+            );
+          })}
+          <button className="next-button" onClick={onClickButton}>
+            확인
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
