@@ -22,7 +22,14 @@ $fcolor200: #444444;
     }
 }
 
+.header {
+    display: flex;
+    justify-content: center;
+}
+
 .header-container {
+    max-width: 750px;
+    width:100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,6 +39,7 @@ $fcolor200: #444444;
         margin: 0 10px;
     }
     .modal-area {
+        position: relative;
         display: flex;
         justify-content: space-around;
         width: 100px;
@@ -47,31 +55,31 @@ $fcolor200: #444444;
     .modal {
         $width: 100px;
         $height: 80px;
-        position: absolute;
         width: $width;
         height: $height;
-        top: 60px;
-        right: 35px;
+        position: absolute;
+        top: 50px;
+        right: 25px;
         
         &::before {
             position: absolute;
             content: "";
-            border-bottom: $height/6 solid #e6e6e6;
-            border-left: $width/12 solid transparent;
-            border-right: $width/12 solid transparent;
-            left: $width*5/12;
-            top: -$height/6;
+            border-bottom: calc($height/6) solid #e6e6e6;
+            border-left: calc($width/12) solid transparent;
+            border-right: calc($width/12) solid transparent;
+            left: calc($width*5/12);
+            top: calc($height/-6);
         }
 
         div {
             width: $width;
-            height: $height/2;
+            height: calc($height/2);
             box-sizing: border-box;
             background-color: #e6e6e6;
             border: 1px solid white;
             border-top: 0;
             text-align: center;
-            line-height: $height/2;
+            line-height: calc($height/2);
             color: $fcolor100;
             font-size: 13px;
 
