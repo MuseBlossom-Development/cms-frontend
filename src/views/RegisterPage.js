@@ -117,6 +117,11 @@ const RegisterPage = () => {
           ? setShowPw({ ...showPw, pw1: false })
           : setShowPw({ ...showPw, pw2: false });
         break;
+      case "mouseout":
+        e.target.name === "3"
+          ? setShowPw({ ...showPw, pw1: false })
+          : setShowPw({ ...showPw, pw2: false });
+        break;
       default:
         break;
     }
@@ -176,27 +181,29 @@ const RegisterPage = () => {
                         className="password-block"
                         style={{ flexBasis: "50%" }}
                       >
-                        <input
-                          type={
-                            idx === 2
-                              ? showPw.pw1
+                        <div className="input-password">
+                          <img
+                            src="icons/eye.png"
+                            alt="LOCK_IMG"
+                            name={idx + 1}
+                            onMouseDown={onEye}
+                            onMouseUp={onEye}
+                            onMouseOut={onEye}
+                          />
+                          <input
+                            type={
+                              idx === 2
+                                ? showPw.pw1
+                                  ? "text"
+                                  : "password"
+                                : showPw.pw2
                                 ? "text"
                                 : "password"
-                              : showPw.pw2
-                              ? "text"
-                              : "password"
-                          }
-                          name={"text" + (idx + 1)}
-                          onChange={onChangeText}
-                        />
-                        <br />
-                        <img
-                          src="icons/eye.png"
-                          alt="LOCK_IMG"
-                          name={idx + 1}
-                          onMouseDown={onEye}
-                          onMouseUp={onEye}
-                        />
+                            }
+                            name={"text" + (idx + 1)}
+                            onChange={onChangeText}
+                          />
+                        </div>
                       </div>
                       <span style={{ flexBasis: "20%" }}></span>
                     </>
