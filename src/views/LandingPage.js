@@ -17,6 +17,9 @@ const LandingPage = () => {
       case "mouseup":
         setshowPW(false);
         break;
+      case "mouseout":
+        setshowPW(false);
+        break;
       default:
         break;
     }
@@ -41,15 +44,16 @@ const LandingPage = () => {
           onChange={(e) => setId(e.target.value)}
         />
         <div className="input-password">
-          <input
-            type={showPW ? "text" : "password"}
-            onChange={(e) => setPw(e.target.value)}
-          />
           <img
             src="icons/eye.png"
             alt="LOCK_IMG"
             onMouseDown={onEye}
             onMouseUp={onEye}
+            onMouseOut={onEye}
+          />
+          <input
+            type={showPW ? "text" : "password"}
+            onChange={(e) => setPw(e.target.value)}
           />
         </div>
         <span className="login-button" onClick={onClickLoginButton}>
