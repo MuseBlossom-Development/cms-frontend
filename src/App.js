@@ -2,6 +2,7 @@
 import LandingPage from "./views/LandingPage";
 import HelpPage from "./views/HelpPage";
 import RegisterPage from "./views/RegisterPage";
+import RegisterEndPage from "./views/RegisterEndPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./util/style.scss";
 
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/help" element={<HelpPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/register-end" element={<RegisterEndPage />}></Route>
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>

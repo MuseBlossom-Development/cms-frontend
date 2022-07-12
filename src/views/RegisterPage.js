@@ -76,18 +76,19 @@ const RegisterPage = () => {
       return;
     }
 
-    signUp(
-      Text.text2,
-      Text.text3,
-      Text.text4,
-      Text.text1,
-      Text.text5,
-      (res) => {
-        console.log(res);
-        alert("회원가입이 완료되었습니다.");
-        navigate("/");
-      }
-    );
+    // signUp(
+    //   Text.text2,
+    //   Text.text3,
+    //   Text.text4,
+    //   Text.text1,
+    //   Text.text5,
+    //   (res) => {
+    //     console.log(res);
+    //     alert("회원가입이 완료되었습니다.");
+    //     navigate("/");
+    //   }
+    // );
+    navigate("/register-end");
   };
 
   const onClickCheckId = () => {
@@ -175,7 +176,7 @@ const RegisterPage = () => {
                               idx === 1 ? onClickCheckId : onClickCheckEmail
                             }
                           >
-                            {idx === 1 ? "중복확인" : "인증하기"}
+                            중복확인
                           </button>
                         </span>
                       </>
