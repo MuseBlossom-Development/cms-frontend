@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const baseUrl =
-  "http://ec2-15-165-5-112.ap-northeast-2.compute.amazonaws.com:3000";
+const baseUrl = "http://ec2-15-165-5-112.ap-northeast-2.compute.amazonaws.com";
 
 const login = (id, pw, cb) => {
   axios

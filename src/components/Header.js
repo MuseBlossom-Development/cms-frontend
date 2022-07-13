@@ -18,10 +18,10 @@ const Header = (props) => {
     <div className="header">
       <div className="header-container">
         <div className="home-area">
-          <img src="./icons/home.png" alt="home" onClick={onClickHome} />
+          <img src="../icons/home.png" alt="home" onClick={onClickHome} />
         </div>
         <div className="modal-area">
-          <img src="./icons/heart.png" alt="heart" onClick={onClickHeart} />
+          <img src="../icons/heart.png" alt="heart" onClick={onClickHeart} />
           <div
             className="modal"
             style={{ display: [props.showModal === true ? "" : "none"] }}
@@ -30,7 +30,7 @@ const Header = (props) => {
             <div className="bottom-content">로그아웃</div>
           </div>
           <img
-            src="./icons/speaker.png"
+            src="../icons/speaker.png"
             alt="speaker"
             onClick={onClickSpeaker}
           />

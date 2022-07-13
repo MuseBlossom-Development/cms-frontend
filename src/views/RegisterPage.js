@@ -88,7 +88,8 @@ const RegisterPage = () => {
     //     navigate("/");
     //   }
     // );
-    navigate("/register-end");
+    alert("회원가입 되었습니다!");
+    navigate("/register/end");
   };
 
   const onClickCheckId = () => {

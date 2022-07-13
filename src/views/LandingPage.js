@@ -61,7 +61,7 @@ const LandingPage = () => {
         </span>
         <div className="register-area">
           <span onClick={() => navigate("/help")}>문의하기</span>
-          <span onClick={() => navigate("/Register")}>회원가입</span>
+          <span onClick={() => navigate("/register")}>회원가입</span>
         </div>
       </div>
     </div>
