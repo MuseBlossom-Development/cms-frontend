@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { checkId, checkEmail, signUp } from "../api/index";
 import { useNavigate } from "react-router-dom";
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
   const [Text, setText] = useState({
     text1: "",
     text2: "",
@@ -68,8 +68,8 @@ const RegisterPage = () => {
       return;
     }
 
-    if (Text.text3.length < 8 || Text.text3.length > 20) {
-      alert("비밀번호는 8~20자로 해주세요");
+    if (Text.text3.length < 11 || Text.text3.length > 20) {
+      alert("비밀번호는 11~20자로 해주세요");
       return;
     }
 
@@ -85,10 +85,12 @@ const RegisterPage = () => {
       Text.text1,
       Text.text5,
       (scs, res) => {
-        console.log(res);
         if (scs) {
           alert(res.data.message);
-          //로그인 로직
+          props.setToken({
+            accessToken: res.data.user.accessToken,
+            refreshToken: res.data.user.refreshToken,
+          });
           navigate("/register/end");
         } else alert(res.response.data.error);
       }
@@ -122,26 +124,10 @@ const RegisterPage = () => {
     });
   };
 
-  const onEye = (e) => {
-    switch (e.type) {
-      case "mousedown":
-        e.target.name === "3"
-          ? setShowPw({ ...showPw, pw1: true })
-          : setShowPw({ ...showPw, pw2: true });
-        break;
-      case "mouseup":
-        e.target.name === "3"
-          ? setShowPw({ ...showPw, pw1: false })
-          : setShowPw({ ...showPw, pw2: false });
-        break;
-      case "mouseout":
-        e.target.name === "3"
-          ? setShowPw({ ...showPw, pw1: false })
-          : setShowPw({ ...showPw, pw2: false });
-        break;
-      default:
-        break;
-    }
+  const onClickEye = (e) => {
+    e.target.name === "3"
+      ? setShowPw({ ...showPw, pw1: !showPw.pw1 })
+      : setShowPw({ ...showPw, pw2: !showPw.pw2 });
   };
 
   return (
@@ -217,9 +203,7 @@ const RegisterPage = () => {
                               }
                               alt="LOCK_IMG"
                               name={idx + 1}
-                              onMouseDown={onEye}
-                              onMouseUp={onEye}
-                              onMouseOut={onEye}
+                              onClick={onClickEye}
                             />
                             <input
                               type={

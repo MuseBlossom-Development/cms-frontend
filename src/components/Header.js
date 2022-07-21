@@ -29,8 +29,12 @@ const Header = (props) => {
             className="modal"
             style={{ display: [props.showModal === true ? "" : "none"] }}
           >
-            <div className="top-content">내 계정</div>
-            <div className="bottom-content">로그아웃</div>
+            <div className="top-content" onClick={() => alert("go My Page")}>
+              내 계정
+            </div>
+            <div className="bottom-content" onClick={() => alert("logout")}>
+              로그아웃
+            </div>
           </div>
           <img
             src="../icons/speaker.png"

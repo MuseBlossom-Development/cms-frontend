@@ -4,7 +4,7 @@ const baseUrl = "http://ec2-15-165-5-112.ap-northeast-2.compute.amazonaws.com";
 
 const login = (id, pw, cb) => {
   axios
-    .post(baseUrl + "/auth/login", {
+    .post(baseUrl + "/users/login", {
       id: id,
       password: pw,
     })
@@ -47,7 +47,7 @@ const checkEmail = (email, cb) => {
 
 const signUp = (id, pw1, pw2, comName, email, cb) => {
   axios
-    .post(baseUrl + "/auth/signout", {
+    .post(baseUrl + "/users/signup", {
       user_id: id,
       password: pw1,
       passwordCheck: pw2,
@@ -59,13 +59,36 @@ const signUp = (id, pw1, pw2, comName, email, cb) => {
     .catch((err) => cb(err.response.data.success, err));
 };
 
-const sendEmail = (email, name, cb) => {
+const sendEmail = (email, name, token, cb) => {
   axios
-    .post(baseUrl + "/auth/create-auth", {
-      email: email,
-      name: name,
-    })
+    .post(
+      baseUrl + "/auth/create-auth",
+      {
+        email: email,
+        name: name,
+      },
+      {
+        headers: token,
+      }
+    )
     .then((res) => cb(res.data.success, res))
     .catch((err) => cb(err.response.data.success, err));
 };
-export { login, sendHelp, checkId, checkEmail, signUp, sendEmail };
+
+const sendCode = (email, number, token, cb) => {
+  axios
+    .post(
+      baseUrl + "/auth/check-auth",
+      {
+        email: email,
+        num: number,
+      },
+      {
+        headers: token,
+      }
+    )
+    .then((res) => cb(res.data.success, res))
+    .catch((err) => cb(err.response.data.success, err));
+};
+
+export { login, sendHelp, checkId, checkEmail, signUp, sendEmail, sendCode };

@@ -29,83 +29,85 @@ $fcolor500: #999999;
     display: flex;
     justify-content: center;
 
-.header-container {
-    max-width: 750px;
-    width:100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-    .home-area {
-        text-align: left;
-        margin: 0 10px;
-    }
-    .modal-area {
-        position: relative;
+    .header-container {
+        max-width: 750px;
+        width:100%;
         display: flex;
-        justify-content: space-around;
-        width: 100px;
-        margin: 0 10px;
-    }
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
 
-    img {
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        &:hover {
-            filter: drop-shadow(0 0 10px #fd4562);
-        }
-    }
-
-    .modal {
-        $width: 100px;
-        $height: 80px;
-        width: $width;
-        height: $height;
-        position: absolute;
-        top: 50px;
-        right: 25px;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.12);    
-        background-color: transparent;
-        border-radius: 5px;
-
-        &::before {
-            position: absolute;
-            content: "";
-            border-bottom: calc($height/6) solid #e6e6e6;
-            border-left: calc($width/12) solid transparent;
-            border-right: calc($width/12) solid transparent;
-            left: calc($width*5/12);
-            top: calc($height/-6);
+        .home-area {
+            text-align: left;
+            margin: 0 10px;
         }
 
-        div {
-            width: $width;
-            height: calc($height/2);
-            box-sizing: border-box;
-            background-color: #e6e6e6;
-            border-top: 0;
-            text-align: center;
-            line-height: calc($height/2);
-            color: $fcolor100;
-            font-size: 13px;
+        .modal-area {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            width: 100px;
+            margin: 0 10px;
+        }
 
+        img {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
             &:hover {
-                cursor: pointer;
-                background-color: #b8b8b8;
+                filter: drop-shadow(0 0 10px #fd4562);
             }
         }
 
-        .top-content {
-            border-radius: 5px 5px 0 0;
-            border-bottom: 0.5px solid white;
-        }
+        .modal {
+            $width: 100px;
+            $height: 80px;
+            width: $width;
+            height: $height;
+            position: absolute;
+            top: 50px;
+            right: 25px;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.12);    
+            background-color: transparent;
+            border-radius: 5px;
 
-        .bottom-content {
-            border-radius: 0 0 5px 5px;
+            &::before {
+                position: absolute;
+                content: "";
+                border-bottom: $height/6 solid #e6e6e6;
+                border-left: $width/12 solid transparent;
+                border-right: $width/12 solid transparent;
+                left: $width*5/12;
+                top: $height/-6;
+            }
+
+            div {
+                width: $width;
+                height: $height/2;
+                box-sizing: border-box;
+                background-color: #e6e6e6;
+                border-top: 0;
+                text-align: center;
+                line-height: $height/2;
+                color: $fcolor100;
+                font-size: 13px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #b8b8b8;
+                }
+            }
+
+            .top-content {
+                border-radius: 5px 5px 0 0;
+                border-bottom: 0.5px solid white;
+            }
+
+            .bottom-content {
+                border-radius: 0 0 5px 5px;
+            }
         }
     }
-}
 }
 
 

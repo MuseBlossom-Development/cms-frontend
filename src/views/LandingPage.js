@@ -2,33 +2,34 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/index";
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   const [showPW, setshowPW] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
   const navigate = useNavigate();
 
-  const onEye = (e) => {
-    switch (e.type) {
-      case "mousedown":
-        setshowPW(true);
-        break;
-      case "mouseup":
-        setshowPW(false);
-        break;
-      case "mouseout":
-        setshowPW(false);
-        break;
-      default:
-        break;
-    }
+  const onClickEye = () => {
+    setshowPW(!showPW);
   };
 
   const onClickLoginButton = () => {
     login(id, pw, (scs, res) => {
       if (scs) {
         alert(res.data.message);
+        props.setToken({
+          accessToken: res.data.accessToken,
+          refreshToken: res.data.refreshToken,
+        });
+        const jwt = require("jsonwebtoken");
+
+        if (jwt.decode(res.data.accessToken.substring(7)).id === id) {
+          if (!res.data.isEmail) navigate("/register/end");
+          else
+            alert(
+              "로그인 성공, 이메일 인증 된 아이디 -> 계약페이지로 라우팅 예정"
+            );
+        } else alert("허용되지 않은 접근입니다.");
       } else alert(res.response.data.error);
     });
   };
@@ -49,9 +50,7 @@ const LandingPage = () => {
           <img
             src={showPW ? "icons/visibility_off.svg" : "icons/visibility.svg"}
             alt="LOCK_IMG"
-            onMouseDown={onEye}
-            onMouseUp={onEye}
-            onMouseOut={onEye}
+            onClick={onClickEye}
           />
           <input
             type={showPW ? "text" : "password"}

@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
-import { sendEmail } from "../api/index";
+import { sendEmail, sendCode } from "../api/index";
 
-const EmailCheckPage = () => {
+const EmailCheckPage = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [timer, setTimer] = useState(180);
+  const [timer, setTimer] = useState(300);
 
   const codeDom = useRef({});
+
+  const jwt = require("jsonwebtoken");
+
+  const { email, name } = jwt.decode(props.userToken.accessToken.substring(7));
 
   const onClickBody = () => setShowModal(false);
 
@@ -31,6 +35,11 @@ const EmailCheckPage = () => {
   }, [timer]);
 
   useEffect(() => {
+    sendEmail(email, name, props.userToken, (scs, res) => {
+      if (scs) {
+        console.log(res);
+      } else console.log(res);
+    });
     codeDom.current[0].focus();
   }, []);
 
@@ -53,7 +62,11 @@ const EmailCheckPage = () => {
     }
     if (code.indexOf("|") !== -1) alert("입력코드를 확인해주세요");
     else {
-      sendEmail();
+      sendCode(email, code, props.userToken, (scs, res) => {
+        if (scs) {
+          console.log(res);
+        } else console.log(res);
+      });
     }
   };
 
