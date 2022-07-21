@@ -71,7 +71,14 @@ const EmailCheckPage = (props) => {
   };
 
   const onClickReset = () => {
-    setTimer(180);
+    sendEmail(email, name, props.userToken, (scs, res) => {
+      if (scs) {
+        console.log(res);
+      } else console.log(res);
+    });
+
+    alert("인증코드가 다시 발송되었습니다.");
+    setTimer(300);
     for (let i = 0; i < 5; ++i) codeDom.current[i].value = "";
     codeDom.current[0].focus();
   };
