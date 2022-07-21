@@ -24,6 +24,8 @@ const RegisterPage = () => {
     email: false,
   });
 
+  const EmailRegExp =
+    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const [showPw, setShowPw] = useState({ pw1: false, pw2: false });
   const [showModal, setShowModal] = useState(false);
 
@@ -66,8 +68,8 @@ const RegisterPage = () => {
       return;
     }
 
-    if (Text.text3.length < 4 || Text.text3.length > 20) {
-      alert("비밀번호는 4~20자로 해주세요");
+    if (Text.text3.length < 8 || Text.text3.length > 20) {
+      alert("비밀번호는 8~20자로 해주세요");
       return;
     }
 
@@ -76,38 +78,47 @@ const RegisterPage = () => {
       return;
     }
 
-    // signUp(
-    //   Text.text2,
-    //   Text.text3,
-    //   Text.text4,
-    //   Text.text1,
-    //   Text.text5,
-    //   (res) => {
-    //     console.log(res);
-    //     alert("회원가입이 완료되었습니다.");
-    //     navigate("/");
-    //   }
-    // );
-    alert("회원가입 되었습니다!");
-    navigate("/register/end");
+    signUp(
+      Text.text2,
+      Text.text3,
+      Text.text4,
+      Text.text1,
+      Text.text5,
+      (scs, res) => {
+        console.log(res);
+        if (scs) {
+          alert(res.data.message);
+          //로그인 로직
+          navigate("/register/end");
+        } else alert(res.response.data.error);
+      }
+    );
   };
 
   const onClickCheckId = () => {
-    checkId(Text.text2, (res) => {
+    checkId(Text.text2, (scs, res) => {
       if (Text.text2.length < 4 || Text.text2.length > 20) {
         alert("아이디는 4~20자로 해주세요");
         return;
       }
-      alert(res.data.message);
-      if (res.data.success === true) isChecked.current.id = true;
+      if (scs) {
+        isChecked.current.id = true;
+        alert(res.data.message);
+      } else alert(res.response.data.error);
     });
   };
 
   const onClickCheckEmail = () => {
-    checkEmail(Text.text5, (res) => {
-      alert(res.data.message);
-      if (res.data.success === true) isChecked.current.email = true; // api res보고 추가바람
-      isChecked.current.email = true;
+    const email = Text.text5;
+    if (!email.match(EmailRegExp)) {
+      alert("이메일 형식을 확인해주세요");
+      return;
+    }
+    checkEmail(email, (scs, res) => {
+      if (scs) {
+        isChecked.current.email = true;
+        alert(res.data.message);
+      } else alert(res.response.data.error);
     });
   };
 
@@ -135,7 +146,11 @@ const RegisterPage = () => {
 
   return (
     <>
-      <Header showModal={showModal} setShowModal={setShowModal} />
+      <Header
+        showModal={showModal}
+        setShowModal={setShowModal}
+        showMenu={false}
+      />
       <div className="body" onClick={onClickBody}>
         <div className="container">
           <h2 style={{ marginBottom: "50px" }}>회원 가입</h2>
@@ -191,7 +206,15 @@ const RegisterPage = () => {
                         >
                           <div className="input-password">
                             <img
-                              src="icons/eye.png"
+                              src={
+                                idx === 2
+                                  ? showPw.pw1
+                                    ? "icons/visibility_off.svg"
+                                    : "icons/visibility.svg"
+                                  : showPw.pw2
+                                  ? "icons/visibility_off.svg"
+                                  : "icons/visibility.svg"
+                              }
                               alt="LOCK_IMG"
                               name={idx + 1}
                               onMouseDown={onEye}

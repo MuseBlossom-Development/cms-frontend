@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import Tos from "../components/Tos";
 import Header from "../components/Header";
+import { sendHelp } from "../api/index";
+import { useNavigate } from "react-router-dom";
 
 const HelpPage = () => {
   const [Text, setText] = useState({
@@ -12,6 +14,7 @@ const HelpPage = () => {
     5: "",
   });
 
+  const navigate = useNavigate();
   const [check, setCheck] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -45,11 +48,20 @@ const HelpPage = () => {
       alert("약관동의를 체크해 주세요");
       return;
     }
+
+    sendHelp(Text[1], Text[2], Text[3], Text[4], Text[5], (res) => {
+      alert(res.data.message);
+      navigate("/");
+    });
   };
 
   return (
     <>
-      <Header showModal={showModal} setShowModal={setShowModal} />
+      <Header
+        showModal={showModal}
+        setShowModal={setShowModal}
+        showMenu={false}
+      />
       <div className="body" onClick={onClickBody}>
         <div className="container" style={{ width: "400px" }}>
           <h2>문의하기</h2>

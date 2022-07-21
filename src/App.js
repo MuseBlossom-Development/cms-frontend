@@ -1,4 +1,3 @@
-// import "./util/style.scss";
 import LandingPage from "./views/LandingPage";
 import HelpPage from "./views/HelpPage";
 import RegisterPage from "./views/RegisterPage";

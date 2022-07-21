@@ -8,7 +8,20 @@ const login = (id, pw, cb) => {
       id: id,
       password: pw,
     })
-    .then((res) => cb(res.data))
+    .then((res) => cb(res.data.success, res))
+    .catch((err) => cb(err.response.data.success, err));
+};
+
+const sendHelp = (type, name, email, info, contents, cb) => {
+  axios
+    .post(baseUrl + "/help", {
+      type: type, // 문의구분
+      name: name, // 신청자
+      email: email, // 이메일
+      info: info, // 연락처
+      contents: contents, // 문의 내용
+    })
+    .then((res) => cb(res))
     .catch((err) => console.log(err));
 };
 
@@ -18,8 +31,8 @@ const checkId = (id, cb) => {
       type: "id",
       val: id,
     })
-    .then((res) => cb(res))
-    .catch((err) => console.log(err));
+    .then((res) => cb(res.data.success, res))
+    .catch((err) => cb(err.response.data.success, err));
 };
 
 const checkEmail = (email, cb) => {
@@ -28,13 +41,13 @@ const checkEmail = (email, cb) => {
       type: "email",
       val: email,
     })
-    .then((res) => cb(res))
-    .catch((err) => console.log(err));
+    .then((res) => cb(res.data.success, res))
+    .catch((err) => cb(err.response.data.success, err));
 };
 
 const signUp = (id, pw1, pw2, comName, email, cb) => {
   axios
-    .post(baseUrl + "/auth/signup", {
+    .post(baseUrl + "/auth/signout", {
       user_id: id,
       password: pw1,
       passwordCheck: pw2,
@@ -42,7 +55,17 @@ const signUp = (id, pw1, pw2, comName, email, cb) => {
       email: email,
       isCheck: true,
     })
-    .then((res) => cb(res))
-    .catch((err) => console.log(err));
+    .then((res) => cb(res.data.success, res))
+    .catch((err) => cb(err.response.data.success, err));
 };
-export { login, checkId, checkEmail, signUp };
+
+const sendEmail = (email, name, cb) => {
+  axios
+    .post(baseUrl + "/auth/create-auth", {
+      email: email,
+      name: name,
+    })
+    .then((res) => cb(res.data.success, res))
+    .catch((err) => cb(err.response.data.success, err));
+};
+export { login, sendHelp, checkId, checkEmail, signUp, sendEmail };

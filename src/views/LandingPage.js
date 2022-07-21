@@ -26,8 +26,10 @@ const LandingPage = () => {
   };
 
   const onClickLoginButton = () => {
-    login(id, pw, (data) => {
-      alert(data.message);
+    login(id, pw, (scs, res) => {
+      if (scs) {
+        alert(res.data.message);
+      } else alert(res.response.data.error);
     });
   };
 
@@ -45,7 +47,7 @@ const LandingPage = () => {
         />
         <div className="input-password">
           <img
-            src="icons/eye.png"
+            src={showPW ? "icons/visibility_off.svg" : "icons/visibility.svg"}
             alt="LOCK_IMG"
             onMouseDown={onEye}
             onMouseUp={onEye}

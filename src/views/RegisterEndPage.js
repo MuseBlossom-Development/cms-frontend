@@ -9,7 +9,11 @@ const RegisterEndPage = () => {
 
   return (
     <>
-      <Header showModal={showModal} setShowModal={setShowModal} />
+      <Header
+        showModal={showModal}
+        setShowModal={setShowModal}
+        showMenu={true}
+      />
       <div className="body" onClick={onClickBody}>
         <div className="container">
           <h2>회원 가입</h2>

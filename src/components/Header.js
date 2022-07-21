@@ -20,7 +20,10 @@ const Header = (props) => {
         <div className="home-area">
           <img src="../icons/home.png" alt="home" onClick={onClickHome} />
         </div>
-        <div className="modal-area">
+        <div
+          className="modal-area"
+          style={{ display: props.showMenu ? "" : "none" }}
+        >
           <img src="../icons/heart.png" alt="heart" onClick={onClickHeart} />
           <div
             className="modal"

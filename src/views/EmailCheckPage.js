@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
+import { sendEmail } from "../api/index";
 
 const EmailCheckPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -35,7 +36,7 @@ const EmailCheckPage = () => {
 
   const onChangeCodeInput = (e) => {
     let { name, value } = e.target;
-    if (value.length != 1) value = value.slice(-1);
+    if (value.length !== 1) value = value.slice(-1);
     e.target.value = value;
     if (name < 4) codeDom.current[Number(name) + 1].focus();
   };
@@ -47,12 +48,12 @@ const EmailCheckPage = () => {
   const onClickButton = () => {
     let code = "";
     for (let i = 0; i < 5; ++i) {
-      if (codeDom.current[i].value != "") code += codeDom.current[i].value;
+      if (codeDom.current[i].value !== "") code += codeDom.current[i].value;
       else code += "|";
     }
     if (code.indexOf("|") !== -1) alert("입력코드를 확인해주세요");
     else {
-      alert("코드 입력됨");
+      sendEmail();
     }
   };
 
@@ -62,9 +63,14 @@ const EmailCheckPage = () => {
     codeDom.current[0].focus();
   };
 
-  const codeInput = [];
+  const onKeyDownCodeInput = (e) => {
+    if (e.key === "Backspace") {
+      e.target.value = "";
+      if (e.target.name > 0) codeDom.current[e.target.name - 1].focus();
+    }
+  };
 
-  const a = ["codeInput1"];
+  const codeInput = [];
 
   for (let i = 0; i < 5; ++i)
     codeInput.push(
@@ -75,12 +81,17 @@ const EmailCheckPage = () => {
         type="text"
         onChange={onChangeCodeInput}
         onFocus={onFocusCodeInput}
+        onKeyDown={onKeyDownCodeInput}
       />
     );
 
   return (
     <>
-      <Header showModal={showModal} setShowModal={setShowModal} />
+      <Header
+        showModal={showModal}
+        setShowModal={setShowModal}
+        showMenu={true}
+      />
       <div className="body" onClick={onClickBody}>
         <div className="container">
           <h2>E-Mail 인증</h2>
